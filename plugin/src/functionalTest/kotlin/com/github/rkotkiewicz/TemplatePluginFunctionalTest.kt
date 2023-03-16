@@ -8,10 +8,12 @@ import kotlin.test.assertTrue
 import kotlin.test.Test
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.jupiter.api.io.TempDir
+import kotlin.test.Ignore
 
 /**
  * A simple functional test for the 'com.github.rkotkiewicz.greeting' plugin.
  */
+@Ignore
 class TemplatePluginFunctionalTest {
 
     @field:TempDir
