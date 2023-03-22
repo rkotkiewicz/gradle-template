@@ -2,10 +2,12 @@ package com.github.rkotkiewicz
 
 import com.github.rkotkiewicz.internal.TemplateIdException
 import org.gradle.api.GradleException
+import org.gradle.api.provider.Provider
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -61,7 +63,6 @@ class TemplatePluginTest {
         project.plugins.apply(pluginId)
         val config = project.extensions.findByName("template") as TemplatePluginExtension
 
-        // config should compile and does not throw an exception
         config.create("bar") {
             it.from.set(project.file("f1"))
         }
@@ -104,5 +105,22 @@ class TemplatePluginTest {
 //                it.parameters("p1" to "v1", "p2" to "2", "p3" to listOf("v3", "v4", "v5"))
             }
         }
+    }
+
+    @Test
+    fun `'into' has default value in template configuration`() {
+        // Create a test project and apply the plugin
+        val project = ProjectBuilder.builder().build()
+        project.plugins.apply(pluginId)
+        val config = project.extensions.findByName("template") as TemplatePluginExtension
+
+        lateinit var into: Provider<File>
+        config.create("bar") {
+            it.from.set(project.file("f1.txt"))
+            into = it.into
+        }
+
+
+        assertTrue (into.isPresent)
     }
 }

@@ -8,8 +8,7 @@ template {
     // 'from': File | Directory  
     from file("template1")
     // optional  
-    // 'into': File | Directory
-    // 'into' is File only when 'from' is a File  
+    // 'into': Directory
     into dir("outputDir")
     // optional  
     // parameters is map: String -> (String| String[])

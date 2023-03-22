@@ -4,13 +4,21 @@ import com.github.rkotkiewicz.internal.TemplateIdException
 import com.github.rkotkiewicz.internal.TemplateSourceException
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
+import java.io.File
 
 abstract class TemplatePluginExtension(
-    private val templateConfigurations: NamedDomainObjectContainer<TemplateConfiguration>) {
+    private val templateConfigurations: NamedDomainObjectContainer<TemplateConfiguration>,
+    private val buildDir: File
+) {
     fun create(taskPrefix: String, templateConfig: Action<TemplateConfiguration>) {
         assertName(taskPrefix)
         val tc = templateConfigurations.create(taskPrefix, templateConfig)
+        tc.into.convention(getDefaultOutput(taskPrefix))
         assertFrom(tc)
+    }
+
+    private fun getDefaultOutput(subfolder: String): File {
+        return File("$buildDir/template/$subfolder")
     }
 
     private fun assertName(name: String) {
