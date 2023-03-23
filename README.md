@@ -1,5 +1,4 @@
 # gradle-template
-I'm not sure how to configure input templates and generated output files. Maybe I should use the CopySpec type.
 
 ```kotlin
 template {
@@ -11,7 +10,7 @@ template {
     // 'into': Directory
     into dir("outputDir")
     // optional  
-    // parameters is map: String -> (String| String[])
+    // parameters is map: String -> Any
     parameters(p1: "v1", p2: 2, p3: ["v3","v4","v5"])
   }
 }
