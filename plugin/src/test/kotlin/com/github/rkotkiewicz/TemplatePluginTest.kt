@@ -1,7 +1,7 @@
 package com.github.rkotkiewicz
 
 import com.github.rkotkiewicz.internal.TemplateIdException
-import org.gradle.api.GradleException
+import com.github.rkotkiewicz.internal.TemplateSourceException
 import org.gradle.api.provider.Provider
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.assertThrows
@@ -36,7 +36,6 @@ class TemplatePluginTest {
         config.create("foo") {
             it.from.set(project.file("bar"))
             it.into.set(project.file("baz"))
-//            it.parameters("p1" to "v1", "p2" to "2", "p3" to listOf("v3", "v4", "v5"))
         }
     }
 
@@ -99,10 +98,9 @@ class TemplatePluginTest {
 
 
         // config should throw an exception
-        assertThrows<GradleException> {
+        assertThrows<TemplateSourceException> {
             config.create("foo") {
                 it.into.set(project.file("baz"))
-//                it.parameters("p1" to "v1", "p2" to "2", "p3" to listOf("v3", "v4", "v5"))
             }
         }
     }
@@ -120,7 +118,33 @@ class TemplatePluginTest {
             into = it.into
         }
 
-
         assertTrue (into.isPresent)
+    }
+
+
+    @Test
+    fun `we can bind values in template configuration`() {
+        // Create a test project and apply the plugin
+        val project = ProjectBuilder.builder().build()
+        project.plugins.apply(pluginId)
+        val config = project.extensions.findByName("template") as TemplatePluginExtension
+
+        config.create("bar") {
+            it.from.set(project.file("f1.txt"))
+            it.binding("p1" to "v1", "p2" to listOf("v2", 1))
+        }
+    }
+
+    @Test
+    fun `we can bind values by passing a map in template configuration`() {
+        // Create a test project and apply the plugin
+        val project = ProjectBuilder.builder().build()
+        project.plugins.apply(pluginId)
+        val config = project.extensions.findByName("template") as TemplatePluginExtension
+
+        config.create("bar") {
+            it.from.set(project.file("f1.txt"))
+            it.binding(mapOf("p0" to 11))
+        }
     }
 }
