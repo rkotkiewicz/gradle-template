@@ -11,7 +11,7 @@ template {
     into dir("outputDir")
     // optional  
     // parameters is map: String -> Any
-    parameters(p1: "v1", p2: 2, p3: ["v3","v4","v5"])
+    binding(p1: "v1", p2: 2, p3: ["v3","v4","v5"])
   }
 }
 ```
