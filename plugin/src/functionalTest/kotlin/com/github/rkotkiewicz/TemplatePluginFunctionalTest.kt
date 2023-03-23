@@ -1,10 +1,11 @@
 package com.github.rkotkiewicz
 
-import java.io.File
-import kotlin.test.assertTrue
-import kotlin.test.Test
 import org.gradle.testkit.runner.GradleRunner
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.io.TempDir
+import java.io.File
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TemplatePluginFunctionalTest {
 
@@ -13,72 +14,84 @@ class TemplatePluginFunctionalTest {
 
     private val buildFile by lazy { projectDir.resolve("build.gradle") }
     private val settingsFile by lazy { projectDir.resolve("settings.gradle") }
-    private val templateFile by lazy { projectDir.resolve("src").resolve("test.template.txt") }
-    private val templateFile1 by lazy { projectDir.resolve("src").resolve("test1.template.txt") }
-    private val filledTemplateFile by lazy { projectDir.resolve("build/template/test/test.template.txt") }
-    private val filledTemplateFile1 by lazy { projectDir.resolve("build/template/test/test1.template.txt") }
 
-    @Test fun `generated task 'testFillTemplate' produces output file for input file`() {
+    private val srcFolder by lazy { projectDir.resolve("src") }
+    private val srcSubFolder by lazy { srcFolder.resolve("subFolder") }
+
+    private val templateFile0 by lazy { srcFolder.resolve("test0.template.txt") }
+    private val templateFile1 by lazy { srcSubFolder.resolve("test1.template.txt") }
+
+    private val buildDir by lazy { projectDir.resolve("build") }
+
+    @BeforeEach
+    fun initProject() {
         // Set up the test build
         settingsFile.writeText("")
-        buildFile.writeText("""
+        buildFile.writeText(
+            """
             plugins {
                 id('com.github.rkotkiewicz.template')
             }
             
-            template {
-                create('test') {
-                    from.set(file("${'$'}projectDir/src/${templateFile.name}"))
-                }
-            }
-            
-            
-        """.trimIndent())
-        templateFile.parentFile.mkdirs()
-        templateFile.writeText("test")
-
-        // Run the build
-        val runner = GradleRunner.create()
-        runner.forwardOutput()
-        runner.withPluginClasspath()
-        runner.withArguments(":testFillTemplate")
-        runner.withProjectDir(projectDir)
-        runner.build()
-
-        // Verify the result
-        assertTrue(filledTemplateFile.exists())
+            """.trimIndent()
+        )
+        srcSubFolder.mkdirs()
     }
 
-    @Test fun `generated task 'testFillTemplate' produces output files for input directory`() {
-        // Set up the test build
-        settingsFile.writeText("")
-        buildFile.writeText("""
-            plugins {
-                id('com.github.rkotkiewicz.template')
-            }
-            
+
+    @Test
+    fun `generated task 'testFileFillTemplate' produces output file for input file`() {
+
+        buildFile.appendText(
+            """                
             template {
-                create('test') {
+                create('testFile') {
+                    from.set(file("${'$'}projectDir/src/${templateFile0.name}"))
+                }
+            }           
+            
+        """.trimIndent()
+        )
+        templateFile0.writeText("whatever")
+
+        // Run the build
+        runTask(":testFileFillTemplate")
+
+        // Verify the result
+        assertEquals("whatever", buildDir.resolve("template/testFile/test0.template.txt").readText())
+    }
+
+
+    @Test
+    fun `generated task 'testDirFillTemplate' produces output files for input directory`() {
+        buildFile.appendText(
+            """            
+            template {
+                create('testDir') {
                     from.set(file("${'$'}projectDir/src"))
                 }
             }
-            
-            
-        """.trimIndent())
-        templateFile.parentFile.mkdirs()
-        templateFile.writeText("test")
-        templateFile1.writeText("test1")
+        """.trimIndent()
+        )
+        templateFile0.writeText("first file")
+        templateFile1.writeText("second file")
 
         // Run the build
+        runTask(":testDirFillTemplate")
+
+        // Verify the result
+        val destinationDir = buildDir.resolve("template/testDir")
+        assertEquals("first file", destinationDir.resolve("test0.template.txt").readText())
+        assertEquals("second file", destinationDir.resolve("subFolder/test1.template.txt").readText())
+    }
+
+    private fun runTask(taskName: String) {
         val runner = GradleRunner.create()
         runner.forwardOutput()
         runner.withPluginClasspath()
-        runner.withArguments(":testFillTemplate")
+        runner.withArguments(taskName)
         runner.withProjectDir(projectDir)
         runner.build()
 
-        // Verify the result
-        assertTrue(filledTemplateFile.exists())
-        assertTrue(filledTemplateFile1.exists())
     }
 }
