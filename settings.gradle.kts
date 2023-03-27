@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "template"
-include("plugin")
+include("template")
