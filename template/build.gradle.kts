@@ -4,7 +4,12 @@ plugins {
 
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.7.10"
+
+    id("com.gradle.plugin-publish") version "1.1.0"
 }
+
+group = "com.github.rkotkiewicz"
+version = "0.1.0"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -48,4 +53,23 @@ tasks.named<Task>("check") {
 tasks.named<Test>("test") {
     // Use JUnit Jupiter for unit tests.
     useJUnitPlatform()
+}
+
+
+pluginBundle {
+    website = "https://github.com/rkotkiewicz/gradle-template"
+    vcsUrl = "https://github.com/rkotkiewicz/gradle-template"
+    tags = listOf("template", "template-engine")
+}
+
+
+gradlePlugin {
+    plugins {
+        create("templatePlugin") {
+            id = "com.github.rkotkiewicz.template"
+            implementationClass = "com.github.rkotkiewicz.TemplatePlugin"
+            displayName = "template filler plugin"
+            description = "This Gradle plugin creates tasks that fill template files."
+        }
+    }
 }
