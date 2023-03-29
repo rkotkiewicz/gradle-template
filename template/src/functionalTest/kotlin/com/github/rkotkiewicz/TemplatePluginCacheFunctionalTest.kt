@@ -23,11 +23,11 @@ class TemplatePluginCacheFunctionalTest: FunctionalTestBase()  {
         templateFile0.writeText("Ala ma kota")
 
         // Run the build
-        gradlew(":testFileFillTemplate")
-        val res = gradlew(":testFileFillTemplate")
+        gradlew(":fillTestFileTemplate")
+        val res = gradlew(":fillTestFileTemplate")
 
         // Verify the result
-        assertContains(res.output,":testFileFillTemplate UP-TO-DATE")
+        assertContains(res.output,":fillTestFileTemplate UP-TO-DATE")
     }
 
     @Test
@@ -51,8 +51,8 @@ class TemplatePluginCacheFunctionalTest: FunctionalTestBase()  {
         templateFile0.writeText("value: \$stringValue")
 
         // Run the build
-        gradlew(":testFillTemplate", "-PstrVal=val0")
-        gradlew(":testFillTemplate", "-PstrVal=val1")
+        gradlew(":fillTestTemplate", "-PstrVal=val0")
+        gradlew(":fillTestTemplate", "-PstrVal=val1")
 
         // Verify the result
         assertEquals("value: val1",
@@ -78,12 +78,12 @@ class TemplatePluginCacheFunctionalTest: FunctionalTestBase()  {
         """.trimIndent()
         )
         templateFile0.writeText("test123")
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
 
 
         templateFile0.writeText("test456")
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
         // Verify the result
         assertEquals("test456",
@@ -109,12 +109,12 @@ class TemplatePluginCacheFunctionalTest: FunctionalTestBase()  {
         """.trimIndent()
         )
         templateFile0.writeText("test123")
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
 
 
         templateFile0.writeText("test456")
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
         // Verify the result
         assertEquals("test456",
@@ -144,8 +144,8 @@ class TemplatePluginCacheFunctionalTest: FunctionalTestBase()  {
         templateFile0.writeText("value: \$stringValue")
 
         // Run the build
-        gradlew(":testFillTemplate", "-PstrVal=val10")
-        gradlew(":testFillTemplate", "-PstrVal=val11")
+        gradlew(":fillTestTemplate", "-PstrVal=val10")
+        gradlew(":fillTestTemplate", "-PstrVal=val11")
 
         // Verify the result
         assertEquals("value: val11",

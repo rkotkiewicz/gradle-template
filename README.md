@@ -11,7 +11,7 @@ Edit build.gradle file to apply the plugin:
 
 ```groovy
 plugins {
-  id 'com.github.rkotkiewicz.template' version '0.1.0'
+  id 'com.github.rkotkiewicz.template' version '1.0.0'
 }
 ```
  
@@ -23,7 +23,7 @@ Configure the plugin by adding `template` section in `build.gradle`:
 template {    
   // use `create` to add task
   // you can create many tasks
-  create("taskNamePrefix") {
+  create("templateName") {
       
     // 'from': File | Directory  
     // mandatory  
@@ -41,7 +41,7 @@ template {
 }
 ```
 
-The configuration will create task with name: `taskNamePrefixFillTemplate`.
+The configuration will create task with name: `fillTemplateNameTemplate`.
 
 The `b0: "value0", b1: [1, 2, 42]` bindings will be applied to all template files from `"$projectDir/templates"`.  
 
@@ -76,7 +76,7 @@ template {
 To generate template run task:
 
 ```shell
-./gradlew piFillTemplate
+./gradlew fillPiTemplate
 ```
 
 #### result

@@ -21,7 +21,7 @@ class TemplatePluginFunctionalTest: FunctionalTestBase()  {
         templateFile0.writeText("whatever")
 
         // Run the build
-        gradlew(":testFileFillTemplate")
+        gradlew(":fillTestFileTemplate")
 
         // Verify the result
         assertEquals("whatever", buildDir.resolve("template/testFile/test0.template.txt").readText())
@@ -44,7 +44,7 @@ class TemplatePluginFunctionalTest: FunctionalTestBase()  {
         templateFile1.writeText("second file")
 
         // Run the build
-        gradlew(":testDirFillTemplate")
+        gradlew(":fillTestDirTemplate")
 
         // Verify the result
         val destinationDir = buildDir.resolve("template/testDir")

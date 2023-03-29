@@ -10,10 +10,10 @@ abstract class TemplatePluginExtension(
     private val templateConfigurations: NamedDomainObjectContainer<TemplateConfiguration>,
     private val buildDir: File
 ) {
-    fun create(taskPrefix: String, templateConfig: Action<TemplateConfiguration>) {
-        assertName(taskPrefix)
-        val tc = templateConfigurations.create(taskPrefix, templateConfig)
-        tc.into.convention(getDefaultOutput(taskPrefix))
+    fun create(templateName: String, templateConfig: Action<TemplateConfiguration>) {
+        assertName(templateName)
+        val tc = templateConfigurations.create(templateName, templateConfig)
+        tc.into.convention(getDefaultOutput(templateName))
         assertFrom(tc)
     }
 
