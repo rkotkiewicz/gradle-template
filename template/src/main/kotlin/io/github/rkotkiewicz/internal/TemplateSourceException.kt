@@ -1,4 +1,4 @@
-package com.github.rkotkiewicz.internal
+package io.github.rkotkiewicz.internal
 
 class TemplateSourceException(message: String) : TemplatePluginException(message) {
 }

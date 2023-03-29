@@ -1,7 +1,8 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
-import com.github.rkotkiewicz.internal.TemplateIdException
-import com.github.rkotkiewicz.internal.TemplateSourceException
+import io.github.rkotkiewicz.internal.TemplateIdException
+import io.github.rkotkiewicz.internal.TemplateSourceException
+import io.github.rkotkiewicz.TemplatePluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.assertThrows
@@ -13,7 +14,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class TemplatePluginTest {
-    private val pluginId = "com.github.rkotkiewicz.template"
+    private val pluginId = "io.github.rkotkiewicz.template"
 
     @Test
     fun `plugin registers configuration`() {

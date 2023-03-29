@@ -1,4 +1,4 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
 import org.gradle.api.Named
 import org.gradle.api.provider.MapProperty
