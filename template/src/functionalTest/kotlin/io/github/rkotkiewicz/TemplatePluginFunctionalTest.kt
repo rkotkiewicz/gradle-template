@@ -1,4 +1,4 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

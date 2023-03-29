@@ -1,6 +1,6 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
-import com.github.rkotkiewicz.internal.FillingTemplateTask
+import io.github.rkotkiewicz.internal.FillingTemplateTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

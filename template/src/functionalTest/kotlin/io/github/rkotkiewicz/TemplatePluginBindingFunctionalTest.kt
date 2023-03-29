@@ -1,4 +1,4 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

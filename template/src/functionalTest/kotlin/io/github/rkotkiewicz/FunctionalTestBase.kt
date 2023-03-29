@@ -1,4 +1,4 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
@@ -29,7 +29,7 @@ open class FunctionalTestBase {
         buildFile.writeText(
             """
             plugins {
-                id('com.github.rkotkiewicz.template')
+                id('io.github.rkotkiewicz.template')
             }
             
             """.trimIndent()

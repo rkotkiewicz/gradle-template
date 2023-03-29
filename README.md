@@ -11,7 +11,7 @@ Edit build.gradle file to apply the plugin:
 
 ```groovy
 plugins {
-  id 'com.github.rkotkiewicz.template' version '1.0.0'
+  id 'io.github.rkotkiewicz.template' version '1.0.0'
 }
 ```
  

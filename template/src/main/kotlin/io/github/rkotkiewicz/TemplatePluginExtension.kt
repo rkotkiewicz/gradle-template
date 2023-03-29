@@ -1,7 +1,7 @@
-package com.github.rkotkiewicz
+package io.github.rkotkiewicz
 
-import com.github.rkotkiewicz.internal.TemplateIdException
-import com.github.rkotkiewicz.internal.TemplateSourceException
+import io.github.rkotkiewicz.internal.TemplateIdException
+import io.github.rkotkiewicz.internal.TemplateSourceException
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import java.io.File

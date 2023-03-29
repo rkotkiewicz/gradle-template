@@ -1,6 +1,6 @@
-package com.github.rkotkiewicz.internal
+package io.github.rkotkiewicz.internal
 
-import com.github.rkotkiewicz.TemplateConfiguration
+import io.github.rkotkiewicz.TemplateConfiguration
 import groovy.text.SimpleTemplateEngine
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*

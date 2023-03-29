@@ -1,4 +1,4 @@
-package com.github.rkotkiewicz.internal
+package io.github.rkotkiewicz.internal
 
 import org.gradle.api.GradleException
 

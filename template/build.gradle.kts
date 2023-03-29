@@ -5,7 +5,7 @@ plugins {
     id("com.gradle.plugin-publish") version "1.1.0"
 }
 
-group = "com.github.rkotkiewicz"
+group = "io.github.rkotkiewicz"
 version = "1.0.0"
 
 repositories {
@@ -55,8 +55,8 @@ pluginBundle {
 gradlePlugin {
     plugins {
         create("templatePlugin") {
-            id = "com.github.rkotkiewicz.template"
-            implementationClass = "com.github.rkotkiewicz.TemplatePlugin"
+            id = "io.github.rkotkiewicz.template"
+            implementationClass = "io.github.rkotkiewicz.TemplatePlugin"
             displayName = "template filler plugin"
             description = "This Gradle plugin creates tasks that fill template files."
         }
