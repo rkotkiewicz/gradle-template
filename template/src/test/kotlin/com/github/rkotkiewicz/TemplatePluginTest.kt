@@ -40,19 +40,20 @@ class TemplatePluginTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["abc", "foo42", "camelCase"])
-    fun `create(name) configuration generates '${name}FillTemplate' task`(taskPrefix: String) {
+    @ValueSource(strings = ["abc", "foo42", "camelCase", "SHOUT", "My"])
+    fun `create(name) configuration generates 'fill${name}Template' task`(templateName: String) {
         // Create a test project and apply the plugin
         val project = ProjectBuilder.builder().build()
         project.plugins.apply(pluginId)
         val config = project.extensions.findByName("template") as TemplatePluginExtension
 
         // config should compile and does not throw an exception
-        config.create(taskPrefix) {
+        config.create(templateName) {
             it.from.set(project.file("bar"))
         }
 
-        assertNotNull(project.tasks.findByName("${taskPrefix}FillTemplate"))
+        val capitalizedTemplateName = templateName.replaceFirst(templateName.first(), templateName.first().uppercaseChar())
+        assertNotNull(project.tasks.findByName("fill${capitalizedTemplateName}Template"))
     }
 
     @Test
@@ -69,8 +70,8 @@ class TemplatePluginTest {
             it.from.set(project.file("f2"))
         }
 
-        assertNotNull(project.tasks.findByName("barFillTemplate"))
-        assertNotNull(project.tasks.findByName("bazFillTemplate"))
+        assertNotNull(project.tasks.findByName("fillBarTemplate"))
+        assertNotNull(project.tasks.findByName("fillBazTemplate"))
     }
 
     @ParameterizedTest

@@ -33,7 +33,7 @@ class TemplatePluginBindingFunctionalTest: FunctionalTestBase() {
         )
 
         // Run the build
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
         // Verify the result
         assertEquals(
@@ -70,7 +70,7 @@ class TemplatePluginBindingFunctionalTest: FunctionalTestBase() {
         templateFile0.writeText("value: \$stringValue")
 
         // Run the build
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
         // Verify the result
         assertEquals("value: it is a string",
@@ -107,7 +107,7 @@ class TemplatePluginBindingFunctionalTest: FunctionalTestBase() {
         )
 
         // Run the build
-        gradlew(":testFillTemplate")
+        gradlew(":fillTestTemplate")
 
         // Verify the result
         assertEquals(
